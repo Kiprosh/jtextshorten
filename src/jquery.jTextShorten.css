@@ -1,0 +1,8 @@
+.shortened {
+    height: 84px;
+    overflow: hidden;
+}
+.see_less, .see_more {
+    cursor: pointer;
+    display: inline-block;
+}

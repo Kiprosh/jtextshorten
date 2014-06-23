@@ -24,6 +24,22 @@ describe('jTextShorten', function () {
         data = $(element).data('shortened');
       });
 
+      it('cached values should not be null/undefined', function() {
+        expect(data).not.toBeNull();
+        expect(data).not.toBeUndefined();
+      });
+
+      it('key elements in data attribute', function() {
+        var keys = Object.keys(data);
+
+        expect(keys.length).toEqual(4);
+        expect(keys).toContain('elementIdentifier');
+        expect(keys).toContain('lessText');
+        expect(keys).toContain('limitChars');
+        expect(keys).toContain('moreText');
+        expect(keys).not.toContain('helloworld');
+      });
+
       it('#elementIdentifier', function() {
         expect(data.elementIdentifier).toEqual('ui-shortened-identifier');
       });
@@ -52,6 +68,22 @@ describe('jTextShorten', function () {
           moreText:          'View more'
         });
         data = $(element).data('shortened');
+      });
+
+      it('cached values should not be null/undefined', function() {
+        expect(data).not.toBe(null);
+        expect(data).not.toBe(undefined);
+      });
+
+      it('key elements in data attribute', function() {
+        var keys = Object.keys(data);
+
+        expect(keys.length).toEqual(4);
+        expect(keys).toContain('elementIdentifier');
+        expect(keys).toContain('lessText');
+        expect(keys).toContain('limitChars');
+        expect(keys).toContain('moreText');
+        expect(keys).not.toContain('helloworld');
       });
 
       it('#elementIdentifier', function() {

@@ -1,11 +1,11 @@
 (function($){
-  DEFAULT_CLASS = 'shortened';
+  DEFAULT_CLASS = 'ui-shortened';
+  EMPTY = 0;
 
   var _defaults, methods, see_more_tag;
 
   var _defaults = {
-    elementIdentifier: 'truncate_identifier',
-    ellipsesText: '...',    // To truncate text with
+    elementIdentifier: 'ui-shortened-identifier',
     lessText: 'See less',   // Display text when is expanded
     limitChars: 300,        // Limit characters to truncate
     moreText: 'See more'    // Display text when string is truncated
@@ -37,15 +37,15 @@
             $(see_more_tag).insertAfter($this);
           }
 
-          $('span.see_more').live('click', function(e) {
-            $(this).removeClass('see_more').addClass('see_less').text(settings.lessText).
-              siblings('.' + settings.elementIdentifier).removeClass(DEFAULT_CLASS);
-          });
+          // $('span.see_more').live('click', function(e) {
+          //   $(this).removeClass('see_more').addClass('see_less').text(settings.lessText).
+          //     siblings('.' + settings.elementIdentifier).removeClass(DEFAULT_CLASS);
+          // });
 
-          $('span.see_less').live('click', function(e) {
-            $(this).removeClass('see_less').addClass('see_more').text(settings.moreText).
-              siblings('.'+ settings.elementIdentifier).addClass(DEFAULT_CLASS);
-          });
+          // $('span.see_less').live('click', function(e) {
+          //   $(this).removeClass('see_less').addClass('see_more').text(settings.moreText).
+          //     siblings('.'+ settings.elementIdentifier).addClass(DEFAULT_CLASS);
+          // });
         });
       }
     };

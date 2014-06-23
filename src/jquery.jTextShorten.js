@@ -1,14 +1,14 @@
 (function($){
   DEFAULT_CLASS = 'ui-shortened';
-  EMPTY = 0;
+  EMPTY         = 0;
 
   var _defaults, methods, see_more_tag;
 
   var _defaults = {
     elementIdentifier: 'ui-shortened-identifier',
-    lessText: 'See less',   // Display text when is expanded
-    limitChars: 300,        // Limit characters to truncate
-    moreText: 'See more'    // Display text when string is truncated
+    lessText:          'See less', // Display text when is expanded
+    limitChars:        300,        // Limit characters to truncate
+    moreText:          'See more'  // Display text when string is truncated
   };
 
   methods = {

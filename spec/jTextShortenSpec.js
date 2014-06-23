@@ -3,7 +3,7 @@ describe('jTextShorten', function () {
 
     beforeEach(function() {
         var fixture = setFixtures(
-          "<div class='example'>" +
+          "<div class = 'example'>" +
           "Jasmine is a behavior-driven development framework for" +
           "testing JavaScript code. It does not depend on any other" +
           "JavaScript frameworks. It does not require a DOM." +
@@ -47,9 +47,9 @@ describe('jTextShorten', function () {
       beforeEach(function() {
         $(element).shortened({
           elementIdentifier: 'ui-sample-identifier',
-          lessText: 'View less',
-          limitChars: 100,
-          moreText: 'View more'
+          lessText:          'View less',
+          limitChars:        100,
+          moreText:          'View more'
         });
         data = $(element).data('shortened');
       });

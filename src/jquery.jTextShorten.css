@@ -1,8 +1,12 @@
-.shortened {
+.ui-shortened {
     height: 84px;
     overflow: hidden;
 }
-.see_less, .see_more {
+.ui-see_less, .ui-see_more {
     cursor: pointer;
     display: inline-block;
+}
+.ui-blue {
+  color: #1b7ec9;
+  cursor: pointer;
 }

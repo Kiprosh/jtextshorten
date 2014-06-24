@@ -6,7 +6,7 @@
 
   var _defaults = {
     elementIdentifier: 'ui-shortened-identifier',
-    lessText:          'See less', // Display text when is expanded
+    lessText:          'See less', // Display text when expanded
     limitChars:        300,        // Limit characters to truncate
     moreText:          'See more'  // Display text when string is truncated
   };
@@ -30,10 +30,10 @@
 
           if ($this.text().length > settings.limitChars) {
             $this.addClass(DEFAULT_CLASS + ' ' + settings.elementIdentifier);
-            if($this.siblings('.see_more, .see_less').length > EMPTY) {
-              $this.siblings('.see_more, .see_less').remove();
+            if($this.siblings('.ui-see_more, .ui-see_less').length > EMPTY) {
+              $this.siblings('.ui-see_more, .ui-see_less').remove();
             }
-            see_more_tag = "<span class='see_more blue'>See more</span>";
+            see_more_tag = "<span class='ui-see_more ui-blue'>See more</span>";
             $(see_more_tag).insertAfter($this);
           }
 

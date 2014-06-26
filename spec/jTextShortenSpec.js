@@ -1,93 +1,93 @@
 describe('jTextShorten', function () {
-    var elem;
+  var elem;
 
-    beforeEach(function() {
-        loadFixtures("single_element.html");
-        element = $('.example');
-    });
+  beforeEach(function() {
+    loadFixtures("single_element.html");
+    element = $('.example');
+  });
 
-    describe('Initialization', function() {
-      describe('Default settings', function() {
-        var data;
+  describe('Initialization', function() {
+    describe('Default settings', function() {
+      var data;
 
-        beforeEach(function() {
-          $(element).shortened();
-          data = $(element).data('shortened');
-        });
-
-        it('cached values should not be null/undefined', function() {
-          expect(data).not.toBeNull();
-          expect(data).not.toBeUndefined();
-        });
-
-        it('key elements in data attribute', function() {
-          var keys = Object.keys(data);
-
-          expect(keys.length).toEqual(3);
-          expect(keys).toContain('lessText');
-          expect(keys).toContain('limitChars');
-          expect(keys).toContain('moreText');
-          expect(keys).not.toContain('helloworld');
-        });
-
-        it('#limitChars', function() {
-          expect(data.limitChars).toEqual(300);
-        });
-
-        it('#lessText', function() {
-          expect(data.lessText).toEqual('See less');
-        });
-
-        it('#moreText', function() {
-          expect(data.moreText).toEqual('See more');
-        });
+      beforeEach(function() {
+        $(element).shortened();
+        data = $(element).data('shortened');
       });
 
-      describe('Override default settings if options passed in', function() {
-        var data;
-
-        beforeEach(function() {
-          $(element).shortened({
-            lessText:          'View less',
-            limitChars:        100,
-            moreText:          'View more'
-          });
-          data = $(element).data('shortened');
-        });
-
-        it('cached values should not be null/undefined', function() {
-          expect(data).not.toBe(null);
-          expect(data).not.toBe(undefined);
-        });
-
-        it('key elements in data attribute', function() {
-          var keys = Object.keys(data);
-
-          expect(keys.length).toEqual(3);
-          expect(keys).toContain('lessText');
-          expect(keys).toContain('limitChars');
-          expect(keys).toContain('moreText');
-          expect(keys).not.toContain('helloworld');
-        });
-
-        it('#limitChars', function() {
-          expect(data.limitChars).toEqual(100);
-        });
-
-        it('#lessText', function() {
-          expect(data.lessText).toEqual('View less');
-        });
-
-        it('#moreText', function() {
-          expect(data.moreText).toEqual('View more');
-        });
+      it('cached values should not be null/undefined', function() {
+        expect(data).not.toBeNull();
+        expect(data).not.toBeUndefined();
       });
 
-      it('should add custom classes to the element', function() {
-          $(element).shortened();
-          expect(element).toHaveClass('ui-shortened');
+      it('key elements in data attribute', function() {
+        var keys = Object.keys(data);
+
+        expect(keys.length).toEqual(3);
+        expect(keys).toContain('lessText');
+        expect(keys).toContain('limitChars');
+        expect(keys).toContain('moreText');
+        expect(keys).not.toContain('helloworld');
+      });
+
+      it('#limitChars', function() {
+        expect(data.limitChars).toEqual(300);
+      });
+
+      it('#lessText', function() {
+        expect(data.lessText).toEqual('See less');
+      });
+
+      it('#moreText', function() {
+        expect(data.moreText).toEqual('See more');
       });
     });
+
+    describe('Override default settings if options passed in', function() {
+      var data;
+
+      beforeEach(function() {
+        $(element).shortened({
+          lessText:          'View less',
+          limitChars:        100,
+          moreText:          'View more'
+        });
+        data = $(element).data('shortened');
+      });
+
+      it('cached values should not be null/undefined', function() {
+        expect(data).not.toBe(null);
+        expect(data).not.toBe(undefined);
+      });
+
+      it('key elements in data attribute', function() {
+        var keys = Object.keys(data);
+
+        expect(keys.length).toEqual(3);
+        expect(keys).toContain('lessText');
+        expect(keys).toContain('limitChars');
+        expect(keys).toContain('moreText');
+        expect(keys).not.toContain('helloworld');
+      });
+
+      it('#limitChars', function() {
+        expect(data.limitChars).toEqual(100);
+      });
+
+      it('#lessText', function() {
+        expect(data.lessText).toEqual('View less');
+      });
+
+      it('#moreText', function() {
+        expect(data.moreText).toEqual('View more');
+      });
+    });
+
+    it('should add custom classes to the element', function() {
+      $(element).shortened();
+      expect(element).toHaveClass('ui-shortened');
+    });
+  });
 
   describe('Destroy', function() {
     var orig_element;

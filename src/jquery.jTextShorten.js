@@ -5,7 +5,6 @@
   var _defaults, methods, see_more_tag;
 
   var _defaults = {
-    elementIdentifier: 'ui-shortened-identifier',
     lessText:          'See less', // Display text when expanded
     limitChars:        300,        // Limit characters to truncate
     moreText:          'See more'  // Display text when string is truncated
@@ -29,7 +28,7 @@
             $this.data('shortened', settings);
 
           if ($this.text().length > settings.limitChars) {
-            $this.addClass(DEFAULT_CLASS + ' ' + settings.elementIdentifier);
+            $this.addClass(DEFAULT_CLASS);
             if($this.siblings('.ui-see_more, .ui-see_less').length > EMPTY) {
               $this.siblings('.ui-see_more, .ui-see_less').remove();
             }
@@ -47,6 +46,15 @@
           //     siblings('.'+ settings.elementIdentifier).addClass(DEFAULT_CLASS);
           // });
         });
+      },
+
+      destroy: function() {
+        $this = $(this);
+
+        $this.siblings('.ui-see_more, .ui-see_less').remove();
+        $this.removeClass(DEFAULT_CLASS);
+        $this.removeData('shortened');
+        return $this;
       }
     };
 

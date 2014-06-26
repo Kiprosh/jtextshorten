@@ -16,95 +16,107 @@ describe('jTextShorten', function () {
         element = fixture.find('.example');
     });
 
-    describe('default settings', function() {
-      var data;
+    describe('Initialization', function() {
+      describe('Default settings', function() {
+        var data;
 
-      beforeEach(function() {
-        $(element).shortened();
-        data = $(element).data('shortened');
-      });
-
-      it('cached values should not be null/undefined', function() {
-        expect(data).not.toBeNull();
-        expect(data).not.toBeUndefined();
-      });
-
-      it('key elements in data attribute', function() {
-        var keys = Object.keys(data);
-
-        expect(keys.length).toEqual(4);
-        expect(keys).toContain('elementIdentifier');
-        expect(keys).toContain('lessText');
-        expect(keys).toContain('limitChars');
-        expect(keys).toContain('moreText');
-        expect(keys).not.toContain('helloworld');
-      });
-
-      it('#elementIdentifier', function() {
-        expect(data.elementIdentifier).toEqual('ui-shortened-identifier');
-      });
-
-      it('#limitChars', function() {
-        expect(data.limitChars).toEqual(300);
-      });
-
-      it('#lessText', function() {
-        expect(data.lessText).toEqual('See less');
-      });
-
-      it('#moreText', function() {
-        expect(data.moreText).toEqual('See more');
-      });
-    });
-
-    describe('should override default settings if options passed in', function() {
-      var data;
-
-      beforeEach(function() {
-        $(element).shortened({
-          elementIdentifier: 'ui-sample-identifier',
-          lessText:          'View less',
-          limitChars:        100,
-          moreText:          'View more'
+        beforeEach(function() {
+          $(element).shortened();
+          data = $(element).data('shortened');
         });
-        data = $(element).data('shortened');
+
+        it('cached values should not be null/undefined', function() {
+          expect(data).not.toBeNull();
+          expect(data).not.toBeUndefined();
+        });
+
+        it('key elements in data attribute', function() {
+          var keys = Object.keys(data);
+
+          expect(keys.length).toEqual(3);
+          expect(keys).toContain('lessText');
+          expect(keys).toContain('limitChars');
+          expect(keys).toContain('moreText');
+          expect(keys).not.toContain('helloworld');
+        });
+
+        it('#limitChars', function() {
+          expect(data.limitChars).toEqual(300);
+        });
+
+        it('#lessText', function() {
+          expect(data.lessText).toEqual('See less');
+        });
+
+        it('#moreText', function() {
+          expect(data.moreText).toEqual('See more');
+        });
       });
 
-      it('cached values should not be null/undefined', function() {
-        expect(data).not.toBe(null);
-        expect(data).not.toBe(undefined);
+      describe('Override default settings if options passed in', function() {
+        var data;
+
+        beforeEach(function() {
+          $(element).shortened({
+            lessText:          'View less',
+            limitChars:        100,
+            moreText:          'View more'
+          });
+          data = $(element).data('shortened');
+        });
+
+        it('cached values should not be null/undefined', function() {
+          expect(data).not.toBe(null);
+          expect(data).not.toBe(undefined);
+        });
+
+        it('key elements in data attribute', function() {
+          var keys = Object.keys(data);
+
+          expect(keys.length).toEqual(3);
+          expect(keys).toContain('lessText');
+          expect(keys).toContain('limitChars');
+          expect(keys).toContain('moreText');
+          expect(keys).not.toContain('helloworld');
+        });
+
+        it('#limitChars', function() {
+          expect(data.limitChars).toEqual(100);
+        });
+
+        it('#lessText', function() {
+          expect(data.lessText).toEqual('View less');
+        });
+
+        it('#moreText', function() {
+          expect(data.moreText).toEqual('View more');
+        });
       });
 
-      it('key elements in data attribute', function() {
-        var keys = Object.keys(data);
-
-        expect(keys.length).toEqual(4);
-        expect(keys).toContain('elementIdentifier');
-        expect(keys).toContain('lessText');
-        expect(keys).toContain('limitChars');
-        expect(keys).toContain('moreText');
-        expect(keys).not.toContain('helloworld');
-      });
-
-      it('#elementIdentifier', function() {
-        expect(data.elementIdentifier).toEqual('ui-sample-identifier');
-      });
-
-      it('#limitChars', function() {
-        expect(data.limitChars).toEqual(100);
-      });
-
-      it('#lessText', function() {
-        expect(data.lessText).toEqual('View less');
-      });
-
-      it('#moreText', function() {
-        expect(data.moreText).toEqual('View more');
+      it('should add custom classes to the element', function() {
+          $(element).shortened();
+          expect(element).toHaveClass('ui-shortened');
       });
     });
 
-    it('should add custom classes to the element', function() {
-        $(element).shortened();
-        expect(element).toHaveClass('ui-shortened ui-shortened-identifier');
+  describe('Destroy', function() {
+    var orig_element;
+
+    beforeEach(function() {
+      $(element).shortened();
+      orig_element = $(element).shortened('destroy');
     });
+
+    it('should remove default class added', function() {
+      expect(orig_element).not.toHaveClass('ui-shortened');
+    });
+
+    it('should have zero html tags added', function() {
+      expect(orig_element.siblings('.ui-see_more')).toHaveLength(0);
+    });
+
+    it('should remove retained settings in data-attribute', function() {
+      expect(orig_element.data('shortened')).toBeUndefined();
+    });
+  });
 });

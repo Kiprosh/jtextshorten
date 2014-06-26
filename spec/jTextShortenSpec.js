@@ -2,18 +2,8 @@ describe('jTextShorten', function () {
     var elem;
 
     beforeEach(function() {
-        var fixture = setFixtures(
-          "<div class = 'example'>" +
-          "Jasmine is a behavior-driven development framework for" +
-          "testing JavaScript code. It does not depend on any other" +
-          "JavaScript frameworks. It does not require a DOM." +
-          " And it has a clean, obvious syntax so that you can easily write tests. " +
-          " This guide is running against Jasmine version 2.0.0. Specs are defined by" +
-          " calling the global Jasmine function it, which, like describe takes a string and a function."+
-          " The string is the title of the spec and the function is the spec, or test." +
-          "</div>"
-        );
-        element = fixture.find('.example');
+        loadFixtures("single_element.html");
+        element = $('.example');
     });
 
     describe('Initialization', function() {

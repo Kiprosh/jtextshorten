@@ -109,4 +109,11 @@ describe('jTextShorten', function () {
       expect(orig_element.data('shortened')).toBeUndefined();
     });
   });
+
+  it('support single element', function() {
+    $('.example').shortened();
+
+    expect($('.example')).toHaveLength(1);
+    expect($('.example').data('shortened')).toHaveLength(1);
+  });
 });

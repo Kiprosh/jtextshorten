@@ -30,8 +30,8 @@
 
           if ($this.text().length > settings.limitChars) {
             $this.addClass(DEFAULT_CLASS);
-            if($this.siblings('.ui-see_more, .ui-see_less').length > EMPTY) {
-              $this.siblings('.ui-see_more, .ui-see_less').remove();
+            if ($this.next('.ui-see_more, .ui-see_less').length > EMPTY) {
+              $this.next('.ui-see_more, .ui-see_less').remove();
             }
             $this.attr('data-uniq', uniq_stamp);
             see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + uniq_stamp + ">See more</span>";

@@ -108,6 +108,29 @@ describe('jTextShorten', function () {
     });
   });
 
+  describe('Methods', function() {
+    var data;
+
+    beforeEach(function() {
+      $(element).shortened();
+    });
+
+    it('should not return null/undefined for init method', function() {
+      data = $(element).shortened('init');
+      expect(data).not.toBe(undefined);
+    });
+
+    it('should not return null/undefined for destroy method', function() {
+      data = $(element).shortened('destroy');
+      expect(data).not.toBe(undefined);
+    });
+
+    it('should return undefined for non-existing method', function() {
+      data = $(element).shortened('create');
+      expect(data).toBe(undefined);
+    });
+  });
+
   it('support single element', function() {
     $('.example').shortened();
 

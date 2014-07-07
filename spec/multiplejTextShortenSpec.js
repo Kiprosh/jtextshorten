@@ -31,8 +31,6 @@ describe('multiplejTextShorten', function () {
     it('should have html tags for all elements', function() {
       expect($('.example')).toHaveLength(3);
       expect($('.example').siblings('.ui-see_more')).toHaveLength(3);
-      //expect(element.siblings('.ui-see_more')).toHaveLength(1);
-      //expect(element.siblings('.ui-see_more')).toHaveText('See more');
     });
   }); 
 });

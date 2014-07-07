@@ -22,12 +22,11 @@ describe('jTextShorten', function () {
 
       it('key elements in data attribute', function() {
         var keys = Object.keys(data);
-
-        expect(keys.length).toEqual(3);
-        expect(keys).toContain('lessText');
-        expect(keys).toContain('limitChars');
-        expect(keys).toContain('moreText');
-        expect(keys).not.toContain('helloworld');
+          expect(keys.length).toEqual(4);
+          expect(keys).toContain('lessText');
+          expect(keys).toContain('limitChars');
+          expect(keys).toContain('moreText');
+          expect(keys).not.toContain('helloworld');
       });
 
       it('#limitChars', function() {
@@ -62,12 +61,11 @@ describe('jTextShorten', function () {
 
       it('key elements in data attribute', function() {
         var keys = Object.keys(data);
-
-        expect(keys.length).toEqual(3);
-        expect(keys).toContain('lessText');
-        expect(keys).toContain('limitChars');
-        expect(keys).toContain('moreText');
-        expect(keys).not.toContain('helloworld');
+          expect(keys.length).toEqual(4);
+          expect(keys).toContain('lessText');
+          expect(keys).toContain('limitChars');
+          expect(keys).toContain('moreText');
+          expect(keys).not.toContain('helloworld');
       });
 
       it('#limitChars', function() {

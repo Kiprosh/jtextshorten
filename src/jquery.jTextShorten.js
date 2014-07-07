@@ -16,8 +16,9 @@
         return this.each(function()
         {
           var $this    = $(this);
-
+          var uniq_stamp = generateUniqStamp();
           var settings = $.extend({}, _defaults);
+          settings.unique_identity = uniq_stamp;
 
           if (options) {
             settings   = $.extend(settings, options);
@@ -32,19 +33,18 @@
             if($this.siblings('.ui-see_more, .ui-see_less').length > EMPTY) {
               $this.siblings('.ui-see_more, .ui-see_less').remove();
             }
-            see_more_tag = "<span class='ui-see_more ui-blue'>See more</span>";
+            $this.attr('data-uniq', uniq_stamp);
+            see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + uniq_stamp + ">See more</span>";
             $(see_more_tag).insertAfter($this);
           }
 
-          // $('span.see_more').live('click', function(e) {
-          //   $(this).removeClass('see_more').addClass('see_less').text(settings.lessText).
-          //     siblings('.' + settings.elementIdentifier).removeClass(DEFAULT_CLASS);
-          // });
+          $(document).on( 'click', '.ui-see_more', function(e) {
+            expand($this);
+          });
 
-          // $('span.see_less').live('click', function(e) {
-          //   $(this).removeClass('see_less').addClass('see_more').text(settings.moreText).
-          //     siblings('.'+ settings.elementIdentifier).addClass(DEFAULT_CLASS);
-          // });
+          $(document).on( 'click', '.ui-see_less', function(e) {
+            collapse($this);
+          });
         });
       },
 
@@ -57,6 +57,24 @@
         return $this;
       }
     };
+
+    function collapse(element) {
+      options =  element.data('shortened');
+      $(".ui-see_less[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_less').
+        addClass('ui-see_more').text(options.moreText);
+      $(element).addClass(DEFAULT_CLASS);
+    };
+
+    function expand(element) {
+      options =  element.data('shortened');
+      $(".ui-see_more[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_more').
+        addClass('ui-see_less').text(options.lessText);
+      $(element).removeClass(DEFAULT_CLASS);
+    };
+
+    function generateUniqStamp() {
+      return Math.round((new Date()).getTime() / 100);
+    }
 
   // Plugin entry
   $.fn.shortened = function(method)

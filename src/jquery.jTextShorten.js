@@ -28,15 +28,7 @@
           if (!$.data(this, 'shortened'))
             $this.data('shortened', settings);
 
-          if ($this.text().length > settings.limitChars) {
-            $this.addClass(DEFAULT_CLASS);
-            if ($this.next('.ui-see_more, .ui-see_less').length > EMPTY) {
-              $this.next('.ui-see_more, .ui-see_less').remove();
-            }
-            $this.attr('data-uniq', uniq_stamp);
-            see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + uniq_stamp + ">See more</span>";
-            $(see_more_tag).insertAfter($this);
-          }
+          determineTextLength($this, uniq_stamp, settings);
 
           $(document).on( 'click', '.ui-see_more', function(e) {
             expand($this);
@@ -74,6 +66,18 @@
 
     function generateUniqStamp() {
       return Math.round((new Date()).getTime() / 100);
+    }
+
+    function determineTextLength(element, stamp, settings) {
+      if (element.text().length > settings.limitChars) {
+        element.addClass(DEFAULT_CLASS);
+        if (element.next('.ui-see_more, .ui-see_less').length > EMPTY) {
+          element.next('.ui-see_more, .ui-see_less').remove();
+        }
+        element.attr('data-uniq', stamp);
+        see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + stamp + ">See more</span>";
+        $(see_more_tag).insertAfter(element);
+      }
     }
 
   // Plugin entry

@@ -18,25 +18,28 @@
           var $this    = $(this);
           var uniq_stamp = generateUniqStamp();
           var settings = $.extend({}, _defaults);
+          var excluded_tags = ["INPUT", "IMG", "SELECT", "IFRAME"];
           settings.unique_identity = uniq_stamp;
 
-          if (options) {
-            settings   = $.extend(settings, options);
-            settings.limitChars = parseInt(settings.limitChars);
+          if($.inArray(this.tagName, excluded_tags) == -1) {
+            if (options) {
+              settings   = $.extend(settings, options);
+              settings.limitChars = parseInt(settings.limitChars);
+            }
+
+            if (!$.data(this, 'shortened'))
+              $this.data('shortened', settings);
+
+            determineTextLength($this, uniq_stamp, settings);
+
+            $(document).on( 'click', '.ui-see_more', function(e) {
+              expand($this);
+            });
+
+            $(document).on( 'click', '.ui-see_less', function(e) {
+              collapse($this);
+            });
           }
-
-          if (!$.data(this, 'shortened'))
-            $this.data('shortened', settings);
-
-          determineTextLength($this, uniq_stamp, settings);
-
-          $(document).on( 'click', '.ui-see_more', function(e) {
-            expand($this);
-          });
-
-          $(document).on( 'click', '.ui-see_less', function(e) {
-            collapse($this);
-          });
         });
       },
 

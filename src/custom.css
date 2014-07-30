@@ -4,3 +4,8 @@
 #destroy button {
   margin-left: 20px;
 }
+p#code_section_header {
+  color: #317eac;
+  font-weight: bold;
+  font-size: 30px;
+}

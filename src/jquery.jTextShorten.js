@@ -31,14 +31,6 @@
               $this.data('shortened', settings);
 
             determineTextLength($this, uniq_stamp, settings);
-
-            $(document).on( 'click', '.ui-see_more', function(e) {
-              expand($this);
-            });
-
-            $(document).on( 'click', '.ui-see_less', function(e) {
-              collapse($this);
-            });
           }
         });
       },
@@ -51,37 +43,52 @@
         $this.removeData('shortened');
         return $this;
       }
-    };
+  };
 
-    function collapse(element) {
-      options =  element.data('shortened');
-      $(".ui-see_less[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_less').
-        addClass('ui-see_more').text(options.moreText);
-      $(element).addClass(DEFAULT_CLASS);
-    };
+  function collapse(element) {
+    options =  element.data('shortened');
+    $(".ui-see_less[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_less').
+      addClass('ui-see_more').text(options.moreText);
+    $(element).addClass(DEFAULT_CLASS);
+    text = element.text().substr(0, options['limitChars']);
+    element.html(text);
+  };
 
-    function expand(element) {
-      options =  element.data('shortened');
-      $(".ui-see_more[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_more').
-        addClass('ui-see_less').text(options.lessText);
-      $(element).removeClass(DEFAULT_CLASS);
-    };
+  function expand(element) {
+    options =  element.data('shortened');
+    $(".ui-see_more[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_more').
+      addClass('ui-see_less').text(options.lessText);
+    $(element).removeClass(DEFAULT_CLASS);
+    $(element).html($(element).attr('data-content'));
+  };
 
-    function generateUniqStamp() {
-      return Math.round((new Date()).getTime() / 100);
-    }
+  function generateUniqStamp() {
+    return Math.round(Math.random()*1E16);
+  }
 
-    function determineTextLength(element, stamp, settings) {
-      if (element.text().length > settings.limitChars) {
-        element.addClass(DEFAULT_CLASS);
-        if (element.next('.ui-see_more, .ui-see_less').length > EMPTY) {
-          element.next('.ui-see_more, .ui-see_less').remove();
-        }
-        element.attr('data-uniq', stamp);
-        see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + stamp + ">See more</span>";
-        $(see_more_tag).insertAfter(element);
+  function determineTextLength(element, stamp, settings) {
+    if (element.text().length > settings.limitChars) {
+      element.addClass(DEFAULT_CLASS);
+      if (element.next('.ui-see_more, .ui-see_less').length > EMPTY) {
+        element.next('.ui-see_more, .ui-see_less').remove();
       }
+      element.attr({'data-uniq': stamp, 'data-content': element.text()});
+      text = element.text().substr(0, settings.limitChars);
+      element.html(text);
+      see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + stamp + ">See more</span>";
+      $(see_more_tag).insertAfter(element);
     }
+  }
+
+  $(document).on( 'click', '.ui-see_more', function(e) {
+    shortened_div = $(this).prev();
+    expand(shortened_div);
+  });
+
+  $(document).on( 'click', '.ui-see_less', function(e) {
+    shortened_div = $(this).prev();
+    collapse(shortened_div);
+  });
 
   // Plugin entry
   $.fn.shortened = function(method)

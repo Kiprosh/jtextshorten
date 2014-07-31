@@ -4,6 +4,7 @@ $(document).ready(function() {
   $('.jt-default').shortened();
   $('.jt-bip').shortened();
   $('.jt-destroy').shortened();
+  $('.jt-limitchar').shortened({limitChars: 100});
 
   $('button').click(function() {
     $('.jt-destroy').shortened('destroy');

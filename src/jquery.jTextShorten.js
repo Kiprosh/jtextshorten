@@ -32,12 +32,15 @@
 
             determineTextLength($this, uniq_stamp, settings);
           }
+          else{
+            var tag = $(this).prop("tagName");
+            throw new Error("jQuery.shortened cannot be applied on " + tag + " tag.");
+          }
         });
       },
 
       destroy: function() {
         $this = $(this);
-
         $this.siblings('.ui-see_more, .ui-see_less').remove();
         $this.removeClass(DEFAULT_CLASS);
         $this.removeData('shortened');
@@ -46,16 +49,16 @@
   };
 
   function collapse(element) {
-    options =  element.data('shortened');
+    var options =  element.data('shortened');
     $(".ui-see_less[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_less').
       addClass('ui-see_more').text(options.moreText);
     $(element).addClass(DEFAULT_CLASS);
-    text = element.text().substr(0, options['limitChars']);
+    var text = element.text().substr(0, options['limitChars']);
     element.html(text);
   };
 
   function expand(element) {
-    options =  element.data('shortened');
+    var options =  element.data('shortened');
     $(".ui-see_more[data-uniq=" + options.unique_identity + "]").removeClass('ui-see_more').
       addClass('ui-see_less').text(options.lessText);
     $(element).removeClass(DEFAULT_CLASS);
@@ -73,7 +76,7 @@
         element.next('.ui-see_more, .ui-see_less').remove();
       }
       element.attr({'data-uniq': stamp, 'data-content': element.text()});
-      text = element.text().substr(0, settings.limitChars);
+      var text = element.text().substr(0, settings.limitChars);
       element.html(text);
       see_more_tag = "<span class='ui-see_more ui-blue' data-uniq=" + stamp + ">See more</span>";
       $(see_more_tag).insertAfter(element);
@@ -81,13 +84,13 @@
   }
 
   $(document).on( 'click', '.ui-see_more', function(e) {
-    shortened_div = $(this).prev();
-    expand(shortened_div);
+    var shortenedDiv = $(this).prev();
+    expand(shortenedDiv);
   });
 
   $(document).on( 'click', '.ui-see_less', function(e) {
-    shortened_div = $(this).prev();
-    collapse(shortened_div);
+    var shortenedDiv = $(this).prev();
+    collapse(shortenedDiv);
   });
 
   // Plugin entry

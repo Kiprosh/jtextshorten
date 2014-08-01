@@ -128,8 +128,8 @@ describe('jTextShorten', function () {
       });
 
       it('should return undefined for non-existing method', function() {
-        data = $(element).shortened('create');
-        expect(data).toBe(undefined);
+        expect( function(){$(element).shortened('create')}).
+          toThrow(new Error("Method create does not exist on jQuery.shortened"));
       });
     });
 
@@ -139,36 +139,39 @@ describe('jTextShorten', function () {
       expect($('.example')).toHaveLength(1);
       expect($('.example').data('shortened')).toHaveLength(1);
     });
+
+    describe('Limit Characters', function () {
+      it('should limit character of text as per inputs', function() {
+        var data = $(element).shortened({limitChars: 100});
+        expect(data.text().length).toEqual(100);
+      });
+    });
   });
 
   describe('Initialization on excluded tags should not be allowed', function () {
 
-    it('should return undefined for img tag', function() {
-      tag_element = $(document.createElement( "img" )).addClass("example");
-      $(tag_element).shortened();
-      data = $(element).data('shortened');
-      expect(data).toBeUndefined();
+    it('should return error for img tag', function() {
+      var tagElement = $(document.createElement( "img" )).addClass("example");
+      expect( function(){$(tagElement).shortened()} ).
+        toThrow(new Error("jQuery.shortened cannot be applied on IMG tag."));
     });
 
-    it('should return undefined for select tag', function() {
-      tag_element = $(document.createElement( "select" )).addClass("example");
-      $(tag_element).shortened();
-      data = $(element).data('shortened');
-      expect(data).toBeUndefined();
+    it('should return error for select tag', function() {
+      var tagElement = $(document.createElement( "select" )).addClass("example");
+      expect( function(){$(tagElement).shortened()} ).
+        toThrow(new Error("jQuery.shortened cannot be applied on SELECT tag."));
     });
 
-    it('should return undefined for input tag', function() {
-      tag_element = $(document.createElement( "input" )).addClass("example");
-      $(tag_element).shortened();
-      data = $(element).data('shortened');
-      expect(data).toBeUndefined();
+    it('should return error for input tag', function() {
+      var tagElement = $(document.createElement( "input" )).addClass("example");
+      expect( function(){$(tagElement).shortened()} ).
+        toThrow(new Error("jQuery.shortened cannot be applied on INPUT tag."));
     });
 
-    it('should return undefined for iframe tag', function() {
-      tag_element = $(document.createElement( "iframe" )).addClass("example");
-      $(tag_element).shortened();
-      data = $(element).data('shortened');
-      expect(data).toBeUndefined();
+    it('should return error for iframe tag', function() {
+      var tagElement = $(document.createElement( "iframe" )).addClass("example");
+      expect( function(){$(tagElement).shortened()} ).
+        toThrow(new Error("jQuery.shortened cannot be applied on IFRAME tag."));
     });
   });
 });

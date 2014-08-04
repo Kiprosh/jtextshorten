@@ -5,9 +5,9 @@
   var _defaults, methods, see_more_tag;
 
   var _defaults = {
-    lessText:          'See less', // Display text when expanded
-    limitChars:        300,        // Limit characters to truncate
-    moreText:          'See more'  // Display text when string is truncated
+    lessText:       'See less', // Display text when expanded
+    limitChars:     300,        // Limit characters to truncate
+    moreText:       'See more'  // Display text when string is truncated
   };
 
   methods = {
@@ -15,21 +15,18 @@
       {
         return this.each(function()
         {
-          var $this    = $(this);
+          var $this = $(this);
           var uniq_stamp = generateUniqStamp();
           var settings = $.extend({}, _defaults);
           var excluded_tags = ["INPUT", "IMG", "SELECT", "IFRAME"];
           settings.unique_identity = uniq_stamp;
-
           if($.inArray(this.tagName, excluded_tags) == -1) {
             if (options) {
               settings   = $.extend(settings, options);
               settings.limitChars = parseInt(settings.limitChars);
             }
-
             if (!$.data(this, 'shortened'))
               $this.data('shortened', settings);
-
             determineTextLength($this, uniq_stamp, settings);
           }
           else{
@@ -83,11 +80,13 @@
     }
   }
 
+  // Click on see more
   $(document).on( 'click', '.ui-see_more', function(e) {
     var shortenedDiv = $(this).prev();
     expand(shortenedDiv);
   });
 
+  // Click on see less
   $(document).on( 'click', '.ui-see_less', function(e) {
     var shortenedDiv = $(this).prev();
     collapse(shortenedDiv);

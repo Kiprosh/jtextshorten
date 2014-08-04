@@ -16,9 +16,21 @@ $(document).ready(function() {
     text = $(this).val();
   });
 
+  $(document).on('focusin', 'input', function() {
+    var data = $(this).closest('.jt-bip').attr('data-content');
+    $(this).val(data);
+  });
+
   $(document).on("best_in_place:error", function(event, request, error) {
-      $('.jt-bip').shortened('destroy');
+    if (text != ""){
       $('.jt-bip').text(text);
-      $('.jt-bip').shortened();
+      $('.jt-bip').attr('data-content', text);
+    }
+    else{
+      $('.jt-bip').text("default");
+      $('.jt-bip').attr('data-content', "default");
+    }
+    $('.jt-bip').shortened('destroy');
+    $('.jt-bip').shortened();
   });
 });

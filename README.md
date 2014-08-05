@@ -1,7 +1,7 @@
 jtextshorten
 ============
 
-**jtextshorten** is a simple text truncation plugin. jtextshorten will prevent text spilling over when applied to a large block of text. jtextshorten can be applied to spans containing best in place.
+**jtextshorten** is a simple text truncation plugin. jtextshorten will prevent text spilling over when applied to a large block of text. jtextshorten can be used with best in place and can be applied to block of text which is wrapped by best in place.
 
 [Live demo!](http://kiprosh.github.io/jtextshorten/demo.html)
 
@@ -13,7 +13,7 @@ Usage
 ```
 $('.jt-default').shortened();
 ```
-By default, jtextshorten will truncate after 300 characters and add 'See more' and 'See less' links after truncation.
+By default, jtextshorten will truncate after `300` characters and add `See more` and `See less` links after truncation.
 
 **Custom Settings**
 
